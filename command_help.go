@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func commandHelp() {
+func commandHelp(cfg *config) error {
 	fmt.Println("")
 	fmt.Println("---POKEDEX HELP---")
 	fmt.Println("available commands:")
@@ -13,4 +13,5 @@ func commandHelp() {
 	}
 
 	fmt.Println("")
+	return nil
 }

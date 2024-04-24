@@ -5,12 +5,25 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/twistingmercury/go-figure"
 )
 
-func startREPL() {
+type cliCommand struct {
+	name        string
+	description string
+	callback    func(*config) error
+}
+
+func execREPL(cfg *config) {
+	startupMsg := figure.NewFigure("Pokedex CLI", "jazmine", true)
+	startupMsg.Print()
+
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
+		fmt.Println("")
+
 		fmt.Print("pokedex > ")
 
 		scanner.Scan()
@@ -27,18 +40,16 @@ func startREPL() {
 
 		command, ok := validCommands[commandName]
 		if !ok {
-			fmt.Printf("unknown command '%v'\n", commandName)
+			fmt.Println("unknown command")
 			continue
 		}
 
-		command.callback()
-	}
-}
+		err := command.callback(cfg)
+		if err != nil {
+			fmt.Println(err)
+		}
 
-type cliCommand struct {
-	name        string
-	description string
-	callback    func()
+	}
 }
 
 func getCommands() map[string]cliCommand {
@@ -52,6 +63,16 @@ func getCommands() map[string]cliCommand {
 			name:        "exit",
 			description: "exit the pokedex",
 			callback:    commandExit,
+		},
+		"map": {
+			name:        "map",
+			description: "lists 20 pokemon world location areas",
+			callback:    commandMap,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "lists the previous 20 pokemon world location areas",
+			callback:    commandMapB,
 		},
 	}
 }
