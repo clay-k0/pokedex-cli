@@ -16,7 +16,7 @@ type cliCommand struct {
 }
 
 func execREPL(cfg *config) {
-	startupMsg := figure.NewFigure("Pokedex CLI", "jazmine", true)
+	startupMsg := figure.NewFigure("Pokedex CLI", "", true)
 	startupMsg.Print()
 
 	scanner := bufio.NewScanner(os.Stdin)
