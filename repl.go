@@ -40,7 +40,7 @@ func execREPL(cfg *config) {
 
 		command, ok := validCommands[commandName]
 		if !ok {
-			fmt.Println("unknown command")
+			fmt.Println("\nunknown command")
 			continue
 		}
 
